@@ -1,0 +1,295 @@
+province_event = {
+    id = hremodevents.107
+    title = "HREMT107"
+    desc = "HREMD107"
+	picture = CITY_DEVELOPMENT_eventPicture
+	goto = root
+
+	trigger = {
+		normal_or_historical_nations = yes
+		OR = {
+			current_age = age_of_holy_wars
+			current_age = age_of_crisis
+		}
+		any_neighbor_province = {
+			culture_group = germanic
+		}
+		NOT = { has_construction = culture }
+		NOT = { has_province_flag = ostsiedlung_flag }
+		OR = {
+			culture = polabian
+			culture = kashubian
+			culture = sorbian
+			culture = schlesian
+			AND = {
+				culture = ladin 
+				OR = { 
+					area = trent_area 
+					area = tirol_area
+				}
+			}
+			AND = {
+				culture = venetian 
+				OR = { 
+					area = trent_area 
+					area = tirol_area
+				}
+			}
+			AND = {
+				culture = czech 
+				OR = { 
+					area = znaim_area 
+					area = eger_area
+					area = aussig_area
+					area = reichenberg_area
+				}
+			}
+			AND = {
+				culture = moravian 
+				OR = { 
+					area = znaim_area 
+					area = eger_area
+					area = aussig_area
+					area = reichenberg_area
+				}
+			}
+		}
+	}
+
+	mean_time_to_happen = {
+		months = 300
+		modifier = {
+			factor = 0.8
+			owner = {
+				culture_group = germanic
+				religion_group = christian
+			}
+		}
+		modifier = {
+			factor = 0.9
+			has_province_flag = fast_ostsiedlung_flag
+		}
+		modifier = {
+			factor = 6
+			owner = {
+				culture_group = west_slavic
+				NOT = { primary_culture = polabian }
+				NOT = { primary_culture = kashubian }
+			}
+		}
+	}
+
+	immediate = {
+		hidden_effect = {
+			set_province_flag = ostsiedlung_flag
+			if = {
+				limit = {
+					has_province_flag = fast_ostsiedlung_flag
+				}
+				clr_province_flag = fast_ostsiedlung_flag
+			}
+			if = {
+				limit = { owner = { is_primitive = yes } }
+				random_list = {
+					33 = {
+						owner = { set_country_flag = get_adm }
+					}
+					33 = {
+						owner = { set_country_flag = get_dip }
+					}
+					33 = {
+						owner = { set_country_flag = get_mil }
+					}
+				}
+			}
+		}
+	}
+
+	option = {
+		name = "HREMA107"
+		ai_chance = {
+			factor = 1
+		}
+		if = {
+			limit = { owner = { is_primitive = yes } }
+			owner = {
+				trigger_switch = {
+					on_trigger = has_country_flag
+					get_adm = { add_adm_power = 33 clr_country_flag = get_adm }
+					get_dip = { add_dip_power = 33 clr_country_flag = get_dip }
+					get_mil = { add_mil_power = 33 clr_country_flag = get_mil }
+				}
+			}
+		}
+		add_base_tax = 1
+		add_base_production = 1
+		add_base_manpower = 1
+		if = {
+			limit = {
+				OR = {
+					region = silesia_region
+					culture = sorbian
+					culture = schlesian
+				}
+			}
+			change_culture = saxon
+		}
+		else_if = {
+			limit = {
+				OR = {
+					region = brandenburg_region
+					area = neumark_area
+				}
+			}
+			change_culture = central_margravian
+		}
+		else_if = {
+			limit = {
+				OR = {
+					region = ostpreussen_region
+					region = westpreussen_region
+				}
+			}
+			change_culture = prussian
+		}
+		else_if = {
+			limit = {
+				OR = {
+					area = eger_area 
+				}
+			}
+			change_culture = bavarian
+		}
+		else_if = {
+			limit = {
+				OR = {
+					area = znaim_area
+					area = trent_area
+					area = tirol_area 
+				}
+			}
+			change_culture = austrian
+		}
+		else_if = {
+			limit = {
+				OR = {
+					culture = kashubian
+					region = mecklenburg_region
+					area = stolp_area
+					area = kolberg_area
+				}
+			}
+			change_culture = pommeranian
+		}
+		else_if = {
+			limit = {
+				OR = {
+					culture = polabian
+					region = holstein_region
+				}
+			}
+			change_culture = low_elbish
+		}
+		else = {
+			change_culture = saxon
+		}
+		add_province_modifier = {
+			name = ostsiedlung
+			duration = 9125
+		}
+	}
+	option = {
+		name = "HREMB107"
+		ai_chance = {
+			factor = 0
+		}
+		add_local_autonomy = 25
+		add_province_modifier = {
+			name = add_unrest_5_modifier
+			duration = 3650
+		}
+	}
+}
+
+country_event = {
+	id = germanicexpansion.1
+	title = "GE1T"
+	desc = "GE1D"
+	picture = CITY_DEVELOPMENT_eventPicture
+
+	trigger = {
+		normal_or_historical_nations = yes
+		any_owned_province = {
+			OR = {
+				area = znaim_area 
+				area = eger_area
+				area = aussig_area
+				area = reichenberg_area					
+			}
+			culture_group = germanic
+		}
+		NOT = {
+			culture_group = germanic
+		}
+		OR = {
+			current_age = age_of_holy_wars
+			current_age = age_of_crisis
+		}
+	}
+	
+	mean_time_to_happen = {
+		months = 12
+	}
+	
+	option = {
+		name = "GE1A"
+		ai_chance = { factor = 50 }
+		random_owned_province = {
+			add_base_tax = 1
+			add_base_production = 1
+			add_base_manpower = 1
+		}
+		add_country_modifier = {
+			name = "accept1_event"
+			duration = 9125
+		}
+		custom_tooltip = GE1A.tt
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						area = znaim_area 
+						area = eger_area
+						area = aussig_area
+						area = reichenberg_area
+					}
+				}
+				set_province_flag = fast_ostsiedlung_flag
+			}
+		}
+	}
+	
+	option = {
+		name = "GE1B"
+		ai_chance = { factor = 50 }
+		add_prestige = 10
+		add_legitimacy = 10	
+		add_country_modifier = {
+			name = "deny1_event"
+			duration = 9125
+		}
+		hidden_effect = {
+			every_owned_province = {
+				limit = {
+					OR = {
+						area = znaim_area 
+						area = eger_area
+						area = aussig_area
+						area = reichenberg_area
+					}
+				}
+				set_province_flag = ostsiedlung_flag
+			}
+		}
+	}
+}

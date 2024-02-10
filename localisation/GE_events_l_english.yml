@@ -1,0 +1,9 @@
+﻿l_english:
+#Events
+ GE1T: "The Question of German Settlement"
+ GE1D: "For some time now, [Root.GetName] has experienced an influx of foreign settlers coming mostly from Swabia, Westphalia, and the Lowlands. Constantly in contact with the [Root.Culture.GetName] locals, both groups have begun to adopt the customs, traditions and even language of each other into their everyday life.\nThis exchange has not only led to a cultural blending, but also a cultural shift in the nation as a whole."
+ GE1A: "They will help develop our provinces"
+ GE1A.tt: "Germans will settle at an increased rate"
+ GE1B: "They do not have our permission"
+ accept1_event: "Embraced Germans"
+ deny1_event: "Denied Settlement" 

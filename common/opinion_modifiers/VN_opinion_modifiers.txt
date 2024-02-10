@@ -1,0 +1,29 @@
+#HistoryPerson
+opinion_incident_hohenzollern_electorate_rejection = {
+	opinion = -100
+	yearly_decay = 2
+}
+opinion_incident_hohenzollern_electorate_compromise = {
+	opinion = -50
+	yearly_decay = 2
+}
+opinion_incident_hohenzollern_electorate = {
+	opinion = 100
+	yearly_decay = 2
+}
+opinion_incident_hohenzollern_electorate_rejection_a = {
+	opinion = -100
+	yearly_decay = 2
+}
+opinion_incident_hohenzollern_electorate_rejection_b = {
+	opinion = -50
+	yearly_decay = 2
+}
+opinion_incident_hohenzollern_electorate_removed = {
+	opinion = -100
+	yearly_decay = 2
+}
+opinion_incident_hohenzollern_electorate_denied = {
+	opinion = -25
+	yearly_decay = 2
+}

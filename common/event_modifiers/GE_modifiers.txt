@@ -1,0 +1,8 @@
+accept1_event = {
+	global_autonomy = 0.05 #intentional
+	development_cost = -0.1
+}
+deny1_event = {
+	global_unrest = -1
+	legitimacy = 1
+}

@@ -1,0 +1,8 @@
+bra_refused_our_demands = {
+	opinion = -50
+	yearly_decay = 5
+}
+bra_accepted_our_demands = {
+	opinion = 50
+	yearly_decay = 5
+}

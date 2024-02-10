@@ -1,0 +1,61 @@
+namespace = events_bra
+normal_or_historical_nations = yes
+
+country_event = {
+	id = events_bra.1
+	title = "events_bra.1.tt"
+	desc = "events_bra.1.dd"
+	picture = LIBERUM_VETO_eventPicture
+	
+	fire_only_once = yes
+	
+	trigger = {
+		tag = BRA
+		is_part_of_hre = yes
+		NOT = { dynasty = "von Hohenzollern" }
+		is_year = 1400
+		NOT = { is_year = 1450 }
+		is_emperor = no
+	}
+	
+	mean_time_to_happen = {
+		months = 300
+	}
+	
+	option = {
+		name = "events_bra.1.a"
+		add_country_modifier = {
+			name = bra_refused_frederick
+			duration = 7300
+		}
+		emperor = {
+			add_opinion = {
+				who = BRA
+				modifier = bra_refused_our_demands
+			}
+		}	
+	}
+	option = {
+		name = "events_bra.1.b"
+		define_ruler = {
+			name = "Frederick I"
+			dynasty = "von Hohenzollern"
+			adm = 4
+			dip = 4
+			mil = 2
+			birth_date = 1371.9.21
+			fixed = yes
+			claim = 95
+		}
+		add_country_modifier = {
+			name = bra_ascension_of_frederick
+			duration = 7300
+		}
+		emperor = {
+			add_opinion = {
+				who = BRA
+				modifier = bra_accepted_our_demands
+			}
+		}			
+	}
+}

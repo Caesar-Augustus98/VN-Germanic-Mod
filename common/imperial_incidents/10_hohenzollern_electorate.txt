@@ -1,0 +1,121 @@
+incident_hohenzollern_electorate = {
+	event = incident_hohenzollern_electorate.2
+	default_option = 2
+	
+	can_stop = {
+		OR = {
+			NOT = {
+				exists = BRA
+			}
+			BRA = {
+				is_elector = yes
+			}
+			BRA = {
+				is_subject = yes
+			}
+			BRA = {
+				NOT = { government = monarchy }
+			}
+			BRA = {
+				is_part_of_hre = no
+			}
+		}
+	}
+	
+	0 = { #Elevate 
+		factor = 1
+		modifier = {
+			factor = 100
+			OR = {
+				ai_attitude = {
+					who = BRA
+					attitude = attitude_friendly
+				}
+				ai_attitude = {
+					who = BRA
+					attitude = attitude_loyal
+				}
+				ai_attitude = {
+					who = BRA
+					attitude = attitude_allied
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				alliance_with = BRA
+				has_opinion = {
+					who = BRA
+					value = 150
+				}
+			}
+		}
+	}
+	
+	1 = { #A Neutral Stance
+		factor = 1
+		modifier = {
+			factor = 100
+			ai_attitude = {
+				who = BRA
+				attitude = attitude_neutral
+			}
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				alliance_with = BRA
+				has_opinion = {
+					who = BRA
+					value = 25
+				}
+			}
+		}
+	}
+
+	2 = { #Publicly Reject
+		factor = 1
+		modifier = {
+			factor = 100
+			OR = {
+				ai_attitude = {
+					who = BRA
+					attitude = attitude_rivalry
+				}
+				ai_attitude = {
+					who = BRA
+					attitude = attitude_hostile
+				}
+				ai_attitude = {
+					who = BRA
+					attitude = attitude_threatened
+				}
+				ai_attitude = {
+					who = BRA
+					attitude = attitude_outraged
+				}
+				ai_attitude = {
+					who = BRA
+					attitude = attitude_disloyal
+				}
+				ai_attitude = {
+					who = BRA
+					attitude = attitude_rebellious
+				}
+			}
+		}
+		modifier = {
+			factor = 1000
+			is_elector = yes
+		}
+		modifier = {
+			factor = 50
+			OR = {
+				alliance_with = emperor
+				total_development = BRA
+				government_rank = 4
+			}
+		}
+	}
+}

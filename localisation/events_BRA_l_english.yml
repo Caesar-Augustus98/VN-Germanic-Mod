@@ -1,0 +1,11 @@
+﻿l_english:
+ events_bra.1.tt: "The Council of Constance"
+ events_bra.1.dd: "The Catholic Church has called a conference to end the schism in the West and unite Catholicism once more. The emperor has asked Brandenburg to crown Frederick Hohenzollern, Margrave of Bayreuth and Ansbach, as Elector to strengthen imperial prestige and boost the legitimacy of Brandenburg. If we agree, our line would no longer hold power, but if we do not, we would lose favor with the emperor."
+ events_bra.1.a: "I will not give up what is rightfully mine, the emperor be damned."
+ events_bra.1.b: "The empire must come first, I will do what I must."
+ 
+#Modifiers
+ bra_ascension_of_frederick: "Ascension of Frederick"
+ bra_refused_frederick: "Refused Imperial Demands"
+ bra_refused_our_demands: "Refused to Crown Frederick"
+ bra_accepted_our_demands: "Crowned Frederick"

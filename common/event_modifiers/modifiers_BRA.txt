@@ -1,0 +1,6 @@
+bra_ascension_of_frederick = {
+	global_unrest = 1
+}
+bra_refused_frederick = {
+	global_unrest = -1
+}

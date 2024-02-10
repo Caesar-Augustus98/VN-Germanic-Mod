@@ -1,0 +1,550 @@
+namespace = incident_hohenzollern_electorate
+#Elevation of BRA-PRU
+country_event = {
+	id = incident_hohenzollern_electorate.1
+	title = "incident_hohenzollern_electorate.1.t"
+	desc = "incident_hohenzollern_electorate.1.d"
+	picture = GOOD_WITH_MONARCH_eventPicture
+
+	fire_only_once = yes
+
+	trigger = {
+		has_dlc = "Emperor"
+		tag = BRA
+		OR = {
+			current_age = age_of_crisis
+			current_age = age_of_dynasticism
+		}
+		normal_or_historical_nations = yes
+		government = monarchy
+		is_subject = no
+		total_development = 250
+		has_regency = no
+		is_female = no
+		NOT = { active_imperial_incident = any }
+		is_elector = no
+		emperor = {
+			alliance_with = BRA
+			has_opinion = {
+				who = BRA
+				value = 150 
+			}
+		}
+        any_elector = {
+			is_rival = emperor 
+			NOT = {
+				has_opinion = {
+					who = emperor
+					value = 0 
+				}
+			}
+			is_subject = no
+			was_player = no
+		}
+		prestige = 0
+		stability = 0
+	}
+
+	mean_time_to_happen = {
+		months = 300
+	}
+	
+	option = {
+		name = incident_hohenzollern_electorate.1.a
+		set_imperial_incident = incident_hohenzollern_electorate
+		custom_tooltip = incident_hohenzollern_electorate.1.tt
+	}
+}
+
+#Incident Event
+country_event = {
+	id = incident_hohenzollern_electorate.2
+	title = incident_hohenzollern_electorate.2.t
+	desc = incident_hohenzollern_electorate.2.d
+	picture = HRE_eventPicture
+	
+	is_triggered_only = yes
+	
+	option = { #Elevate
+		name = incident_hohenzollern_electorate.2.a
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 100
+				OR = {
+					ai_attitude = {
+						who = BRA
+						attitude = attitude_friendly
+					}
+					ai_attitude = {
+						who = BRA
+						attitude = attitude_loyal
+					}
+					ai_attitude = {
+						who = BRA
+						attitude = attitude_allied
+					}
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					alliance_with = BRA
+					has_opinion = {
+						who = BRA
+						value = 150
+					}
+				}
+			}
+		}
+		emperor = {
+			add_imperial_influence = -10
+			reverse_add_opinion = {
+				who = BRA
+				modifier = opinion_incident_hohenzollern_electorate
+			}
+		}
+		tooltip = {
+			BRA = {
+				elector = yes
+				add_prestige = 25
+				add_legitimacy = 25
+				add_opinion = {
+					who = emperor
+					modifier = opinion_incident_hohenzollern_electorate
+				}
+			}
+		}
+		if = {
+			limit = {
+				OR = {
+					num_of_electors = 7
+					num_of_electors = 8
+				}
+			}
+			custom_tooltip = bra_raised_a_tt
+		}
+		else_if = {
+			limit = {
+				NOT = {
+					OR = {
+						num_of_electors = 7
+						num_of_electors = 8
+					}
+				}
+			}
+			custom_tooltip = bra_raised_b_tt
+		}
+		hidden_effect = {
+			BRA = {
+				set_country_flag = incident_hohenzollern_electorate_elevated
+				country_event = { id = incident_hohenzollern_electorate.3 }
+			}
+		}
+	}
+	option = { #A Neutral Stance
+		name = incident_hohenzollern_electorate.2.b
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 100
+				ai_attitude = {
+					who = BRA
+					attitude = attitude_neutral
+				}
+			}
+			modifier = {
+				factor = 0
+				NOT = {
+					alliance_with = BRA
+					has_opinion = {
+						who = BRA
+						value = 25
+					}
+				}
+			}
+		}
+		emperor = {
+			reverse_add_opinion = {
+				who = BRA
+				modifier = opinion_incident_hohenzollern_electorate_compromise
+			}
+		}
+		tooltip = {
+			BRA = {
+				add_opinion = {
+					who = emperor
+					modifier = opinion_incident_hohenzollern_electorate_compromise
+				}
+			}
+		}
+		hidden_effect = {
+			BRA = {
+				set_country_flag = incident_hohenzollern_electorate_compromise
+				country_event = { id = incident_hohenzollern_electorate.3 }
+			}
+		}
+	}
+	option = { #Publicly Reject
+		name = incident_hohenzollern_electorate.2.c
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 100
+				OR = {
+					ai_attitude = {
+						who = BRA
+						attitude = attitude_rivalry
+					}
+					ai_attitude = {
+						who = BRA
+						attitude = attitude_hostile
+					}
+					ai_attitude = {
+						who = BRA
+						attitude = attitude_threatened
+					}
+					ai_attitude = {
+						who = BRA
+						attitude = attitude_outraged
+					}
+					ai_attitude = {
+						who = BRA
+						attitude = attitude_disloyal
+					}
+					ai_attitude = {
+						who = BRA
+						attitude = attitude_rebellious
+					}
+				}
+			}
+			modifier = {
+				factor = 1000
+				is_elector = yes
+			}
+			modifier = {
+				factor = 50
+				OR = {
+					alliance_with = emperor
+					total_development = BRA
+					government_rank = 4
+				}
+			}
+		}
+		emperor = {
+			reverse_add_opinion = {
+				who = BRA
+				modifier = opinion_incident_hohenzollern_electorate_rejection
+			}
+		}
+		hidden_effect = {
+			BRA = {
+				set_country_flag = incident_hohenzollern_electorate_rejection
+				country_event = { id = incident_hohenzollern_electorate.3 }
+			}
+		}
+	}
+}
+
+# Follow-up for Brandenburg
+country_event = {
+	id = incident_hohenzollern_electorate.3
+	title = incident_hohenzollern_electorate.3.t
+	desc = {
+		trigger = {
+			has_country_flag = incident_hohenzollern_electorate_elevated
+		}
+		desc = incident_hohenzollern_electorate.3.d
+	}
+	desc = {
+		trigger = {
+			has_country_flag = incident_hohenzollern_electorate_compromise
+		}
+		desc = incident_hohenzollern_electorate.3.f
+	}
+	desc = {
+		trigger = {
+			has_country_flag = incident_hohenzollern_electorate_rejection
+		}
+		desc = incident_hohenzollern_electorate.3.g
+	}
+	picture = {
+		trigger = {
+			OR = {
+				has_country_flag = incident_hohenzollern_electorate_elevated
+				has_country_flag = incident_hohenzollern_electorate_compromise
+			}
+		}
+		picture = GOOD_WITH_MONARCH_eventPicture
+	}
+	picture = {
+		trigger = {
+			has_country_flag = incident_hohenzollern_electorate_rejection
+		}
+		picture = BAD_WITH_MONARCH_eventPicture
+	}
+	
+	is_triggered_only = yes
+	
+	option = {
+		trigger = {
+			has_country_flag = incident_hohenzollern_electorate_elevated
+		}
+		name = incident_hohenzollern_electorate.3.a
+		ai_chance = { factor = 100 }
+		if = {
+            limit = {
+                any_elector = { 
+					OR = {
+						is_rival = emperor 
+						NOT = {
+							has_opinion = {
+								who = emperor
+								value = 0
+							}
+						}
+					}
+					is_subject = no
+					was_player = no
+				}
+            }
+            random_elector = {
+                limit = { 
+					OR = {
+						is_rival = emperor 
+						NOT = {
+							has_opinion = {
+								who = emperor
+								value = 0
+							}
+						}
+					}
+					is_subject = no
+					was_player = no
+				}
+				elector = no
+            }
+            every_known_country = {
+				limit = {
+					is_part_of_hre = yes
+					NOT = {
+						OR = {
+							is_elector = yes		
+							is_emperor = yes
+						}
+					}
+				}
+				reverse_add_opinion = {
+					who = emperor
+					modifier = opinion_incident_hohenzollern_electorate_denied
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = opinion_incident_hohenzollern_electorate_denied
+				}				
+			}
+            every_known_country = {
+				limit = {
+					is_elector = yes
+					NOT = {
+						is_emperor = yes
+					}
+				}
+				reverse_add_opinion = {
+					who = emperor
+					modifier = opinion_incident_hohenzollern_electorate_removed
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = opinion_incident_hohenzollern_electorate_removed
+				}				
+			}
+			elector = yes
+			add_prestige = 25
+			add_legitimacy = 25
+			reverse_add_opinion = {
+				who = emperor
+				modifier = opinion_incident_hohenzollern_electorate
+			}
+			custom_tooltip = bra_raised_a_tt
+        }
+		else_if = {
+			limit = {
+				any_elector = { 
+					is_subject = no
+					was_player = no 				
+                    NOT = {
+						OR = {
+							good_choice_for_electorship_trigger = yes
+							has_opinion = {
+								who = emperor
+								value = 50
+							}
+                        }
+                    }
+                }
+			}
+            random_elector = {
+                limit = { 
+					is_subject = no
+					was_player = no 				
+                    NOT = {
+						OR = {
+							good_choice_for_electorship_trigger = yes
+							has_opinion = {
+								who = emperor
+								value = 50
+							}
+                        }
+                    }
+				}
+				elector = no
+            }	
+            every_known_country = {
+				limit = {
+					is_part_of_hre = yes
+					NOT = {
+						OR = {
+							is_elector = yes		
+							is_emperor = yes
+						}
+					}
+				}
+				reverse_add_opinion = {
+					who = emperor
+					modifier = opinion_incident_hohenzollern_electorate_denied
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = opinion_incident_hohenzollern_electorate_denied
+				}				
+			}
+            every_known_country = {
+				limit = {
+					is_elector = yes
+					NOT = {
+						is_emperor = yes
+					}
+				}
+				reverse_add_opinion = {
+					who = emperor
+					modifier = opinion_incident_hohenzollern_electorate_removed
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = opinion_incident_hohenzollern_electorate_removed
+				}				
+			}
+			elector = yes
+			add_prestige = 25
+			add_legitimacy = 25
+			reverse_add_opinion = {
+				who = emperor
+				modifier = opinion_incident_hohenzollern_electorate
+			}
+			custom_tooltip = bra_raised_a_tt
+		}	
+		else = {
+			random_elector = { 
+				elector = no
+			}
+            every_known_country = {
+				limit = {
+					is_part_of_hre = yes
+					NOT = {
+						OR = {
+							is_elector = yes		
+							is_emperor = yes
+						}
+					}
+				}
+				reverse_add_opinion = {
+					who = emperor
+					modifier = opinion_incident_hohenzollern_electorate_denied
+				}
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = opinion_incident_hohenzollern_electorate_denied
+				}				
+			}
+            every_known_country = {
+				limit = {
+					is_elector = yes
+					NOT = {
+						is_emperor = yes
+					}
+				}
+				reverse_add_opinion = {
+					who = emperor
+					modifier = opinion_incident_hohenzollern_electorate_removed
+				}	
+				reverse_add_opinion = {
+					who = ROOT
+					modifier = opinion_incident_hohenzollern_electorate_removed
+				}				
+			}
+			elector = yes
+			add_prestige = 25
+			add_legitimacy = 25
+			reverse_add_opinion = {
+				who = emperor
+				modifier = opinion_incident_hohenzollern_electorate
+			}
+			custom_tooltip = bra_raised_b_tt
+		}	
+	}
+	option = {
+		trigger = {
+			has_country_flag = incident_hohenzollern_electorate_compromise
+		}
+		name = incident_hohenzollern_electorate.3.b
+		ai_chance = {
+			factor = 100
+		}
+		reverse_add_opinion = {
+			who = emperor
+			modifier = opinion_incident_hohenzollern_electorate_compromise
+		}	
+		custom_tooltip = bra_neutral_a_tt
+	}
+	option = {
+		name = incident_hohenzollern_electorate.3.c
+		trigger = {
+			has_country_flag = incident_hohenzollern_electorate_rejection
+		}
+		ai_chance = { 
+			factor = 25
+		}
+		reverse_add_opinion = {
+			who = emperor
+			modifier = opinion_incident_hohenzollern_electorate_rejection_a
+		}
+	}
+	option = {
+		name = incident_hohenzollern_electorate.3.e
+		trigger = {
+			has_country_flag = incident_hohenzollern_electorate_rejection
+		}
+		ai_chance = { 
+			factor = 75 
+			modifier = {
+				factor = 0.5
+				emperor = {
+					army_strength = {
+						who = ROOT
+						value = 1
+					}
+				}
+			}
+		}
+		reverse_add_opinion = {
+			who = emperor
+			modifier = opinion_incident_hohenzollern_electorate_rejection_b
+		}
+		add_casus_belli = {
+			target = emperor
+			type = cb_insult
+			months = 24
+		}
+	}
+}
