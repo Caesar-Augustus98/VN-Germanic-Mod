@@ -1,0 +1,5 @@
+1341.1.1 = {
+	owner = WGS
+	controller = WGS
+	culture = pommeranian
+}

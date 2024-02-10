@@ -1,0 +1,5 @@
+1054.7.16 = {
+	owner = UNC
+	controller = UNC
+	culture = ripuarian
+}

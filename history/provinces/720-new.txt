@@ -1,0 +1,5 @@
+1237.1.1 = {
+	owner = TEU
+	controller = TEU
+	culture = mazovian
+}
